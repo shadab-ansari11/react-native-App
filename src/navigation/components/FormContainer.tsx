@@ -1,18 +1,21 @@
 import React from 'react'
-import { View, Text, Dimensions, StyleSheet } from 'react-native'
+import { View, Text, Dimensions, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native'
 
 
 export default function FromContainer({ children }) {
     return (
-        <View style={styles.maincontainer}>
+        <KeyboardAvoidingView
+            enabled
+            behavior={Platform.OS === 'ios' ? "padding": null }
+            style={styles.maincontainer}>
             {children}
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
     maincontainer: {
-       width: Dimensions.get('window').width,
-       paddingHorizontal: 20
+        width: Dimensions.get('window').width,
+        paddingHorizontal: 20
     }
 })

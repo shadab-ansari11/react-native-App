@@ -16,6 +16,7 @@ export default function FromContainer({ children }) {
 const styles = StyleSheet.create({
     maincontainer: {
         width: Dimensions.get('window').width,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        
     }
 })

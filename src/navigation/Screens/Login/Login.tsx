@@ -1,12 +1,17 @@
 import React, { useRef } from 'react'
-import { View, Text, Button, StyleSheet, Dimensions, ScrollView, Animated } from 'react-native'
+import { View, Text, Button, StyleSheet, Dimensions, ScrollView, Animated,ImageBackground } from 'react-native'
 import FormHeader from '../../components/FormHeader'
 import FormSelectorBtn from '../../components/FormSelectorBtn'
 import LoginFrom from '../../components/LoginFrom'
 import SingUpFrom from '../../components/SignUpFrom'
+import BGimage from '../../../../assets/backgroundImg/ranger-4df6c1b6.png'
 
 
-export default function Login() {
+export interface Login {
+ 
+}
+
+export default function Login(p:Login) {
   const { width } = Dimensions.get('window')
   const animated = useRef(new Animated.Value(0)).current
 
@@ -27,18 +32,20 @@ export default function Login() {
 
   const loginColorinterpolate = animated.interpolate({
     inputRange: [0, width],
-    outputRange: ['#006BA6', '#0496FF'],
+    outputRange: ['#0496FF', '#006BA6'],
   });
 
   const SignUpColorinterpolate = animated.interpolate({
     inputRange: [0, width],
-    outputRange: ['#0496FF', '#006BA6'],
+    outputRange: ['#006BA6', '#0496FF'],
   });
   return (
-    <View style={{ flex: 1, paddingTop: 120 }}>
+   <>
+   <ImageBackground source={BGimage} style={styles.backgroundIMG}>
+   <View style={{ flex: 1, paddingTop: 120, }}>
       <View>
         <FormHeader
-          leftheading='Welcom'
+          leftheading='Welcome'
           rightheading="Back"
           subheading="Shadab Ansari"
           rightHeaderOpactiya={rightHeaderOpactiya}
@@ -60,6 +67,8 @@ export default function Login() {
         </ScrollView>
       </ScrollView>
     </View >
+   </ImageBackground>
+   </>
   )
 }
 const windowWidth = Dimensions.get('window').width;
@@ -74,4 +83,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
     borderBottomRightRadius: 8
   },
+  backgroundIMG:{
+    width:(windowWidth/100)*100,
+    height:(windowHeight/100)*100,
+  }
 })

@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
         width: (windowWidth / 100) * 45,
         height:45,
           justifyContent:'center',
-          alignItems:'center'
+          alignItems:'center',
+          
        },
        loginText:{
         color:'#fff',

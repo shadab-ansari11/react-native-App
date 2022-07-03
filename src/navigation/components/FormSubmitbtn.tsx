@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, Text,Dimensions,StyleSheet ,TouchableOpacity} from 'react-native'
 
-export default function FormSubmitbtn({title}) {
+
+export default function FormSubmitbtn({title,onPress}) {
   return (
    <>
-   <TouchableOpacity style={styles.container}>
+  <TouchableOpacity style={styles.container} onPress={onPress}>
     <Text style={styles.SubmitbtnText}>{title}</Text>
    </TouchableOpacity>
    </>

@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         height: 100,
         justifyContent: 'center',
         alignItems: "center",
+        
     },
     heading: {
         fontSize: 30,
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
        
     },
     subheading: {
-        fontSize: 18,
+        fontSize: 12,
         color: '#1b1b33',
         textAlign: 'center',
     },

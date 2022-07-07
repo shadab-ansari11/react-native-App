@@ -1,66 +1,65 @@
 import React, { useState } from 'react'
-import { View, Text, Dimensions, StyleSheet } from 'react-native'
+import { View, Text, Dimensions, StyleSheet, Alert } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import FromContainer from './FormContainer'
 import FormInput from './FormInput'
 import FormSubmitbtn from './FormSubmitbtn'
-import { isValidObjField,updateError, isValidEmail} from './ulits/methads'
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import { useNavigation } from '@react-navigation/native'
+export interface LoginFromPrpos {
 
+}
+type ILogin = {
+  email: string;
+  password: string;
+}
+export default function LoginFrom(P: LoginFromPrpos) {
+  const navigation = useNavigation();
+  const schma = Yup.object().shape({
+    email: Yup.string()
+      .required('email is required'),
 
-export default function LoginFrom() {
-  const [userInfo, setUserInfo] = useState({
-    email: '',
-    password: '',
+    password: Yup.string()
+      .required('Password is required'),
+  });
+  // const onSubmit =  (values: ILogin) => {   
+  //   console.log('value-->', JSON.stringify(values, null, 2));
+  //     Alert.alert("hit")
+  // }
 
-  })
-  const [error, setError] = useState('');
-
-  const { email, password, } = userInfo;
-
-
-  const handleOnchangeText = (value, fieldName) => {
-    setUserInfo({ ...userInfo, [fieldName]: value });
-  };
-
-  const isValidForm = () =>{   
-      if (!isValidObjField(userInfo)) 
-      return updateError('Required all fields!', setError)
-
-      if (!isValidEmail(email))
-       return updateError('Invalid email!', setError)
-
-      if (!password.trim() || password.length < 8) return updateError('Password is too short!', setError) 
+  const { handleSubmit, values, errors, touched,handleChange} = useFormik<ILogin>({
+    initialValues: { email: '', password: ''  },
+    enableReinitialize: true,
+    validationSchema: schma,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: (values: ILogin) =>{
       
-      return true   
-  }
-
-
-  const submitForm = () => {
-   if (isValidForm()) {
-    console.log("shadab---->",userInfo)
-   }
-  }
+    }
+  });
+ 
   return (
-    <FromContainer >
-      {error ? <Text style={{ color: 'red', fontSize: 16, textAlign: 'center' }}>{error}</Text> : null}
-
+    <FromContainer>
       <FormInput
         title="Email"
         placeholder="example@gmail.com"
-        Value={email}
-        onChangeText={(value) => handleOnchangeText(value, 'email')}
-        autoCapitalize='none'
+        error={touched.email || errors.email}
+        value={values.email}
+        name="email"
+        onChangeText={handleChange('email')}        
       />
-
       <FormInput
         title="Password"
-        placeholder="***********"
-        Value={password}
-        onChangeText={(value) => handleOnchangeText(value, 'password')}
-        autoCapitalize="none"
+        placeholder="Password"
         secureTextEntry
+        name="password"
+        error={touched.password || errors.password}
+        value={values.password}
+        onChangeText={handleChange('password')}
       />
-      <FormSubmitbtn onPress={submitForm} title="Login" />
+
+      <FormSubmitbtn onPress={() => handleSubmit()} title="Login" />
 
     </FromContainer>
   )

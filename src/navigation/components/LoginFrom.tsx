@@ -29,13 +29,16 @@ export default function LoginFrom(P: LoginFromPrpos) {
   // }
 
   const { handleSubmit, values, errors, touched,handleChange} = useFormik<ILogin>({
-    initialValues: { email: '', password: ''  },
+    initialValues: { email: 'shadab@gmail.com', password: '123'  },
     enableReinitialize: true,
     validationSchema: schma,
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values: ILogin) =>{
-      
+      if(values.email === "shadab@gmail.com" || values.password === "123"){
+        Alert.alert("please Enter confirm Your email and password")
+      }
+      navigation.navigate("Home")
     }
   });
  

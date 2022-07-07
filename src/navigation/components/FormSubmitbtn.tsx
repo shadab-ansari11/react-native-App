@@ -1,12 +1,16 @@
 import React from 'react'
-import { View, Text,Dimensions,StyleSheet ,TouchableOpacity} from 'react-native'
+import { View, Text,Dimensions,StyleSheet ,TouchableOpacity,GestureResponderEvent} from 'react-native'
 
+export interface FormSubmitbtnPrpos {
+title: string;
+onPress?: () => void;
 
-export default function FormSubmitbtn({title,onPress}) {
+}
+export default function FormSubmitbtn(p:FormSubmitbtnPrpos) {
   return (
    <>
-  <TouchableOpacity style={styles.container} onPress={onPress}>
-    <Text style={styles.SubmitbtnText}>{title}</Text>
+  <TouchableOpacity style={styles.container} onPress={p.onPress}>
+    <Text style={styles.SubmitbtnText}>{p.title}</Text>
    </TouchableOpacity>
    </>
   )

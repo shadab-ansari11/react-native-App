@@ -11,7 +11,7 @@ const Drawer = createDrawerNavigator();
 function MyDrawer() {
   return (
     <Drawer.Navigator useLegacyImplementation>
-      <Drawer.Screen name="home" component={Home} />
+      <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="feed" component={Feeds} />
     </Drawer.Navigator>
   );

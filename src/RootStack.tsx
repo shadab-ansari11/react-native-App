@@ -3,21 +3,25 @@ import {Button, View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DrawerStack from './DrawerStack';
-import Login from './Screens/Login/Login';
-import Signup from './Screens/Login/Signup';
+
+import Login from './Screens/Auth/Login/Index';
+import Home from './Screens/Home';
 
 
 const Stack = createNativeStackNavigator();
-
+export type RootStackParam = {
+  Login: undefined;
+  Home: undefined;
+  DrawerStack: undefined;
+};
 function RootStack() {
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false,
-        }}>
-         <Stack.Screen name="login" component={Login} />
-         <Stack.Screen name="signup" component={Signup} />
+          headerShown: false,}}>
+         <Stack.Screen name="Login" component={Login} />
+         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="drawer" component={DrawerStack} />
       </Stack.Navigator>
     </NavigationContainer>

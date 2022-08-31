@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, Button, StyleSheet, Dimensions, ImageBackground, TouchableOpacity, Alert } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import CartIcon from "react-native-vector-icons/MaterialIcons";
 import { TextInput } from 'react-native-paper';
-
+import IconComponent from '../IconComponent';
 export interface TextFieldprops {
     placeholder?: string;
     textContentType?: string;
@@ -12,20 +10,25 @@ export interface TextFieldprops {
     secureTextEntry?: boolean;
     label?: string;
     style?: string;
-    autoCapitalize?: string | undefined;
-    keyboardType?: string | undefined;
+    autoCapitalize?:any;
+    keyboardType?: any;
     autoComplete?: string | undefined;
     caretHidden?: boolean;
-    returnKeyType?: string | undefined;
-    error?: string;
-    value?:string;
+    returnKeyType?: any;
+    error?: boolean;
+    value?: string;
     onBlur: (e: any) => void;
     onChangeText: (e: any) => void;
+    IconsonPress: () => void;
+    IconStyle?:string  
+    type?:string; 
+  
 }
 
 export default function TextField(props: TextFieldprops) {
     const { placeholder, keyboardType, label, returnKeyType, caretHidden, autoComplete, textContentType,
-        Icons, leftIcon, secureTextEntry, style, autoCapitalize, error,value,onBlur,onChangeText } = props;
+ Icons, leftIcon, secureTextEntry, style, autoCapitalize, error, 
+  value, onBlur, onChangeText,IconsonPress,IconStyle,type} = props;
 
     return (
         <>
@@ -40,18 +43,19 @@ export default function TextField(props: TextFieldprops) {
                         returnKeyType={returnKeyType}
                         textContentType='emailAddress'
                         children={undefined} autoComplete={undefined}
-                        secureTextEntry={true}
+                        secureTextEntry={secureTextEntry}
                         error={error}
                         value={value}
                         onBlur={onBlur}
                         onChangeText={onChangeText}
-                    mode='flat'
-                    // underlineColorAndroid="transparent"
-                    activeUnderlineColor='transparent'
-                    />
-                  
+                        mode='flat'
+                        activeUnderlineColor='transparent'
+                        left={<TextInput.Icon name={() => <IconComponent IConPress={IconsonPress} IconsName={leftIcon}/>} />} 
+                        type={type}
+                  />
+
                 </View>
-                <Text style={{ color: 'red',}}>{error}</Text>
+                <Text style={{ color: 'red', }}>{error}</Text>
 
             </View>
         </>
@@ -93,7 +97,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         marginBottom: 25,
-        marginTop:16,
+        marginTop: 16,
 
     },
     loginButton: {

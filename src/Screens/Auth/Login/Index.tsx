@@ -1,13 +1,23 @@
 import React, { useState } from 'react'
-import { View, Text, Button, StyleSheet, Dimensions, ImageBackground, TextInput, TouchableOpacity, Alert } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import CartIcon from "react-native-vector-icons/AntDesign";
+import { View, Text,  StyleSheet, Dimensions, ImageBackground,  TouchableOpacity, Alert } from 'react-native'
 import TextField from '../../../components/TextField/Index';
 import { ILogin, useLoginForm } from './UseLogin';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParam } from '../../../RootStack';
+import ButtonIndex from '../../../components/Button/ButtonIndex';
 
-const initValues: ILogin = {
+const initValues: ILogin = 
+// {
+//   email: '',
+//   password: '',
+// };
+__DEV__
+?
+{
+  email: 'shadab@gmail.com',
+  password: '11',
+}
+:{
   email: '',
   password: '',
 };
@@ -20,17 +30,16 @@ export default function Login(props: Props) {
   const [loading, setLoading] = React.useState(false);
   const onSubmit = (values: ILogin) => {
     setLoading(false);
-    if (values.email != 'shadab@gmail.com' || values.password != '123') {
+    if (values.email != 'shadab@gmail.com' || values.password != '11') 
+    {
       Alert.alert('Please enter your email and password')
     }else{
       navigation.navigate('Home')
-
     }
-
     console.log('values-->', values);
   };
-
   const formik = useLoginForm(onSubmit, initValues);
+
   const {
     values,
     touched,
@@ -40,6 +49,7 @@ export default function Login(props: Props) {
     handleSubmit,
     handleChange,
   } = formik;
+  const [IconChange , setChange] = useState(false);
   return (
     <>
       <ImageBackground source={require('../../../../assets/backgroundImg/bgImag.jpg')} style={styles.backgroundIMG}>
@@ -47,14 +57,7 @@ export default function Login(props: Props) {
           <View>
             <Text style={styles.loginText}>Login Form</Text>
           </View>
-          {/* <View style={styles.inputView}> */}
-          {/* <Icon
-              style={styles.inputIcon}
-              name='person'
-            /> */}
           <TextField
-            // label='email'
-
             autoComplete="email"
             caretHidden={false}
             placeholder='Username'
@@ -66,34 +69,26 @@ export default function Login(props: Props) {
             error={touched.email ? errors.email : ''}
             onBlur={handleBlur('email')}
             onChangeText={handleChange('email')}
-
-          />
-          {/* </View> */}
-          {/* <View style={styles.inputView}>
-          <CartIcon
-            style={styles.inputIcon}
-            name="lock" /> */}
+            leftIcon='user'
+            IconsonPress={()=>false}  
+            />
           <TextField
-            // label='Password'
             placeholder='Password'
-            secureTextEntry={true}
-            // autoCapitalize='none'
+            secureTextEntry={!IconChange}
             error={touched.password ? errors.password : ''}
             autoComplete="password"
             returnKeyType="next"
             value={values.password}
             onBlur={handleBlur('password')}
             onChangeText={handleChange('password')}
+            leftIcon={IconChange ? 'eye' : 'eye-off' }
+            IconsonPress={()=> setChange(!IconChange)}
+            type={IconChange ? 'password' : 'text'}
           />
-          {/* </View> */}
-
           <TouchableOpacity>
             <Text style={styles.fpText}>Forgot Password?</Text>
-
           </TouchableOpacity>
-          <TouchableOpacity style={styles.loginButton} onPress={() => handleSubmit()}>
-            <Text style={styles.loginButtonText}>Login</Text>
-          </TouchableOpacity>
+          <ButtonIndex  onPress={handleSubmit} />
           <View>
             <Text style={styles.registerText}>
               Don't have an account?
@@ -154,7 +149,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     marginBottom: 0
-
   },
 
   loginButton: {

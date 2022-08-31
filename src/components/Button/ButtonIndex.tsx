@@ -1,6 +1,6 @@
 
-import React, { Component } from 'react';
-import { View, Text, StyleSheet,TouchableOpacity, Dimensions } from 'react-native';
+import React from 'react';
+import {Text, StyleSheet,TouchableOpacity, Dimensions } from 'react-native';
 
 export interface Buttonprops{
     onPress: () => void;
@@ -21,12 +21,12 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     loginButton: {
-        backgroundColor: '#5352ed',
+        // backgroundColor: '#5352ed',
+        backgroundColor: '#339966',
         paddingVertical: 10,
         borderRadius: 8,
-        marginTop: 25,
+        // marginTop: 25,
         width: (windowWidth / 100) * 70,
-    
       },
       loginButtonText: {
         color: '#fff',
@@ -36,5 +36,4 @@ const styles = StyleSheet.create({
       },
 });
 
-//make this component available to the app
 export default ButtonIndex;

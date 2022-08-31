@@ -1,45 +1,44 @@
 import React, { useState } from 'react'
-import { View, Text,  StyleSheet, Dimensions, ImageBackground,  TouchableOpacity, Alert } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, ImageBackground, TouchableOpacity, Alert } from 'react-native'
 import TextField from '../../../components/TextField/Index';
 import { ILogin, useLoginForm } from './UseLogin';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParam } from '../../../RootStack';
 import ButtonIndex from '../../../components/Button/ButtonIndex';
 
-const initValues: ILogin = 
-// {
-//   email: '',
-//   password: '',
-// };
-__DEV__
-?
-{
-  email: 'shadab@gmail.com',
-  password: '11',
-}
-:{
-  email: '',
-  password: '',
-};
+const initValues: ILogin =
+  // {
+  //   email: '',
+  //   password: '',
+  // };
+  __DEV__
+    ?
+    {
+      email: 'shadab@gmail.com',
+      password: '11',
+    }
+    : {
+      email: '',
+      password: '',
+    };
 
 type Props = NativeStackScreenProps<RootStackParam, 'Login'>;
-
-export default function Login(props: Props) {
-
+export interface LoginProps{
+  navigation:any;
+}
+export default function Login(props: LoginProps) {
   const { navigation } = props;
   const [loading, setLoading] = React.useState(false);
   const onSubmit = (values: ILogin) => {
     setLoading(false);
-    if (values.email != 'shadab@gmail.com' || values.password != '11') 
-    {
+    if (values.email != 'shadab@gmail.com' || values.password != '11') {
       Alert.alert('Please enter your email and password')
-    }else{
-      navigation.navigate('Home')
+    } else {
+      navigation.navigate('Drawer')
     }
     console.log('values-->', values);
   };
   const formik = useLoginForm(onSubmit, initValues);
-
   const {
     values,
     touched,
@@ -49,10 +48,23 @@ export default function Login(props: Props) {
     handleSubmit,
     handleChange,
   } = formik;
-  const [IconChange , setChange] = useState(false);
+  const [IconChange, setChange] = useState(false);
+  const createTwoButtonAlert = () =>
+  Alert.alert(
+    "Forgot Password",
+    "coming soon",
+    [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      },
+      { text: "OK", onPress: () => console.log("OK Pressed") }
+    ]
+  );
   return (
     <>
-      <ImageBackground source={require('../../../../assets/backgroundImg/bgImag.jpg')} style={styles.backgroundIMG}>
+      <ImageBackground source={require('../../../../assets/backgroundImg/background.png')} style={styles.backgroundIMG}>
         <View style={styles.mainContainer}>
           <View>
             <Text style={styles.loginText}>Login Form</Text>
@@ -70,38 +82,36 @@ export default function Login(props: Props) {
             onBlur={handleBlur('email')}
             onChangeText={handleChange('email')}
             leftIcon='user'
-            IconsonPress={()=>false}  
-            />
+            IconsonPress={() => false}
+          />
           <TextField
             placeholder='Password'
             secureTextEntry={!IconChange}
-            error={touched.password ? errors.password : ''}
+            error={touched.password && errors.password}
             autoComplete="password"
             returnKeyType="next"
             value={values.password}
             onBlur={handleBlur('password')}
             onChangeText={handleChange('password')}
-            leftIcon={IconChange ? 'eye' : 'eye-off' }
-            IconsonPress={()=> setChange(!IconChange)}
+            leftIcon={IconChange ? 'eye' : 'eye-off'}
+            IconsonPress={() => setChange(!IconChange)}
             type={IconChange ? 'password' : 'text'}
           />
-          <TouchableOpacity>
-            <Text style={styles.fpText}>Forgot Password?</Text>
-          </TouchableOpacity>
-          <ButtonIndex  onPress={handleSubmit} />
+
+          <ButtonIndex onPress={handleSubmit} />
           <View>
             <Text style={styles.registerText}>
               Don't have an account?
-              <Text style={{ color: '#5352ed', fontFamily: 'SourceSansProBold' }}>
+              <Text style={{ color: 'black', fontFamily: 'SourceSansProBold', fontWeight: 'bold' }}>
                 {' Register'}
               </Text>
             </Text>
           </View>
-
+          <TouchableOpacity>
+            <Text style={styles.fpText} onPress={()=>createTwoButtonAlert()}>Forgot Password?</Text>
+          </TouchableOpacity>
         </View>
-
       </ImageBackground>
-
     </>
   )
 }
@@ -117,9 +127,9 @@ const styles = StyleSheet.create({
   mainContainer: {
     justifyContent: "center",
     alignItems: 'center',
-    flex: 1,
+    // flex: 1,
+    marginTop:'50%'
   },
-
   inputView: {
     height: (windowHeight / 100) * 6,
     backgroundColor: '#fff',
@@ -131,7 +141,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-
   },
   inputIcon: {
     paddingHorizontal: 8,
@@ -150,14 +159,12 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     marginBottom: 0
   },
-
   loginButton: {
     backgroundColor: '#5352ed',
     paddingVertical: 10,
     borderRadius: 8,
     marginTop: 25,
     width: (windowWidth / 100) * 70,
-
   },
   loginButtonText: {
     color: '#fff',
@@ -167,16 +174,17 @@ const styles = StyleSheet.create({
   },
   fpText: {
     marginTop: 20,
-    // alignSelf: 'flex-end',
     fontFamily: 'SourceSansProBold',
     fontSize: 16,
-    color: '#5352ed',
+    color: 'black',
+    fontWeight: 'bold',
   },
   registerText: {
     alignSelf: 'center',
     marginTop: 12,
     fontFamily: 'SourceSansProRegular',
     fontSize: 16,
+    color: '#fff'
   },
   loginText: {
     color: '#fff',

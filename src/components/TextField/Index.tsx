@@ -15,13 +15,13 @@ export interface TextFieldprops {
     autoComplete?: string | undefined;
     caretHidden?: boolean;
     returnKeyType?: any;
-    error?: boolean;
+    error?: boolean | undefined;
     value?: string;
     onBlur: (e: any) => void;
     onChangeText: (e: any) => void;
     IconsonPress: () => void;
     IconStyle?:string  
-    type?:string; 
+    type?:boolean; 
   
 }
 
@@ -50,7 +50,7 @@ export default function TextField(props: TextFieldprops) {
                         onChangeText={onChangeText}
                         mode='flat'
                         activeUnderlineColor='transparent'
-                        left={<TextInput.Icon name={() => <IconComponent IConPress={IconsonPress} IconsName={leftIcon}/>} />} 
+                        right={<TextInput.Icon name={() => <IconComponent IConPress={IconsonPress} IconsName={leftIcon}/>} />} 
                         type={type}
                   />
 

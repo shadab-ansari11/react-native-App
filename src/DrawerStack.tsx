@@ -10,8 +10,10 @@ const Drawer = createDrawerNavigator();
 
 function MyDrawer() {
   return (
-    <Drawer.Navigator useLegacyImplementation>
-      <Drawer.Screen name="Home" component={Home} />
+    <Drawer.Navigator useLegacyImplementation screenOptions={{
+      headerShown: false,
+    }} >
+      <Drawer.Screen name="Home" component={Home} options={{headerShown:false,}} />
       <Drawer.Screen name="feed" component={Feeds} />
     </Drawer.Navigator>
   );

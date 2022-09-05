@@ -23,8 +23,8 @@ function RootStack() {
         }}>
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Drawer" component={DrawerStack} />
+        <Stack.Screen name="Home" component={Home}  />
+        <Stack.Screen name="Drawer" component={DrawerStack}   />
       </Stack.Navigator>
     </NavigationContainer>
   );
